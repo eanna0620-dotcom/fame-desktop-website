@@ -61,7 +61,6 @@
     --gap:40px;          /* grid gap */
     --menu-center:520px; /* fixed center card / channel */
     --card-w:500px;      /* interior card */
-    --menu-h:min(820px,84vh); /* menu row height, capped to viewport on short screens */
 
     /* modal tokens (from Figma 567:19096 / 566:18153) */
     --frame-fill-secondary:#141417;
@@ -167,7 +166,7 @@
   .menu__grid{display:grid;grid-template-columns:1fr var(--menu-center) 1fr;column-gap:40px;padding:0 40px 160px;width:100%;align-items:stretch;}
   .menu__col{display:flex;flex-direction:column;gap:40px;min-width:0;}
   .menu__col--center{position:relative;}
-  .sticky-card{position:sticky;top:max(72px, calc((100vh - var(--menu-h)) / 2));transition:background-color .25s ease,border-color .25s ease;}
+  .sticky-card{position:sticky;top:max(72px, calc((100vh - 820px) / 2));transition:background-color .25s ease,border-color .25s ease;}
   .sticky-card .h1{transition:color .25s ease;}
   .sticky-card .btn{transition:background-color .25s ease,border-color .25s ease,color .25s ease;}
   .sticky-card:hover{background:var(--frame-fill-inverted);border-color:var(--btn-border-static-primary);}
@@ -175,11 +174,11 @@
   .sticky-card:hover .btn{background:var(--btn-static-primary);border-color:var(--btn-border-static-primary);color:var(--btn-content-inverted);}
   #menuCardContent{transition:opacity .18s ease;}
   .menu__row{display:grid;grid-template-columns:1fr var(--menu-center) 1fr;column-gap:40px;}
-  .block{height:var(--menu-h);overflow:hidden;position:relative;background:var(--bg-general);}
+  .block{height:820px;overflow:hidden;position:relative;background:var(--bg-general);}
   .block img{position:absolute;left:0;top:0;width:100%;height:calc(100% + 320px);object-fit:cover;object-position:center top;will-change:transform;}
 
   .card{
-    height:var(--menu-h);background:var(--bg-general);border:1px solid var(--border-primary);
+    height:820px;background:var(--bg-general);border:1px solid var(--border-primary);
     padding:40px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;
   }
   .card__content{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;width:100%;}
@@ -193,7 +192,7 @@
   .interior__title{position:relative;height:1200px;overflow:hidden;}
   .interior__title img{position:absolute;left:0;top:0;width:100%;height:calc(100% + 460px);object-fit:cover;object-position:center;will-change:transform,opacity;opacity:0;}
   .interior__title .decor-title{position:absolute;left:50%;top:536px;transform:translateX(-50%);}
-  .interior__slider{background:var(--bg-general);height:min(1080px,92vh);padding:80px 40px 120px;display:flex;align-items:center;justify-content:center;width:100%;}
+  .interior__slider{background:var(--bg-general);height:1080px;padding:80px 40px 120px;display:flex;align-items:center;justify-content:center;width:100%;}
   .interior__inner{flex:1 1 0;height:100%;display:flex;align-items:center;justify-content:space-between;position:relative;min-width:0;}
   .slider{flex:1 1 0;height:100%;position:relative;overflow:hidden;min-width:0;}
   .slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
