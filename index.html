@@ -104,8 +104,7 @@
   .hero__cta .btn{transform:translateY(10px);opacity:0;}
   .hero.cta-in .hero__cta .btn{animation:ctarise 1.8s cubic-bezier(.33,1,.68,1) both;}
   @keyframes ctarise{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-  @keyframes headerDrop{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:none;}}
-  body.chrome-in .header{animation:headerDrop .7s cubic-bezier(.33,1,.68,1) both;}
+  body.chrome-in .header{opacity:1;transform:none;}
   .page{width:100%;display:flex;flex-direction:column;align-items:stretch;transition:transform .5s cubic-bezier(.22,.61,.36,1);}
 
   /* ===== Shared button ===== */
@@ -146,10 +145,10 @@
     display:flex;flex-direction:column;align-items:center;gap:100px;}
   .hero__cta p{width:509px;text-align:center;color:rgba(225,225,225,0.6);font-size:20px;letter-spacing:0.3px;line-height:1.08;}
 
-  .header{position:fixed;top:0;left:0;right:0;height:auto;padding:24px 20px 12px;z-index:100;opacity:0;mix-blend-mode:difference;
+  .header{position:fixed;top:0;left:0;right:0;height:auto;padding:24px 20px 12px;z-index:100;opacity:0;transform:translateY(-16px);mix-blend-mode:difference;
     display:flex;align-items:center;justify-content:space-between;
     font-size:20px;letter-spacing:0.064px;line-height:1;color:var(--content-primary);white-space:nowrap;
-    transition:opacity .3s ease;}
+    transition:opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1);}
   .header--hidden{opacity:0;pointer-events:none;}
   .nav-curtain{position:fixed;inset:0;background:var(--bg-general,#0e0e0f);z-index:400;transform:translateY(100%);pointer-events:none;will-change:transform;}
   .lang-menu{mix-blend-mode:normal;isolation:isolate;}
@@ -189,9 +188,9 @@
   .header__lang.is-open{color:var(--content-inverted,#0e0e0f);}
   .header__lang .ic svg{transition:transform .22s ease;}
   .header__lang.is-open .ic svg{transform:rotate(-180deg);}
-  .lang-menu{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:104px;background:var(--frame-fill-inverted,#e1e1e1);border-radius:4px;display:flex;flex-direction:column;overflow:hidden;z-index:30;box-shadow:0 8px 28px rgba(0,0,0,0.28);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility 0s linear .28s;}
+  .lang-menu{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:84px;background:var(--frame-fill-inverted,#e1e1e1);border-radius:4px;display:flex;flex-direction:column;overflow:hidden;z-index:30;box-shadow:0 8px 28px rgba(0,0,0,0.28);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility 0s linear .28s;}
   .lang-menu.is-open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .28s ease,visibility 0s;}
-  .lang-opt{position:relative;width:100%;height:32px;display:flex;align-items:center;justify-content:center;padding-left:0;gap:8px;font-family:var(--font-body);font-weight:400;font-size:20px;letter-spacing:0.2px;line-height:1;color:var(--content-inverted,#0e0e0f);background:none;border:0;cursor:pointer;transform:translateY(-8px);transition:transform .3s cubic-bezier(.22,.61,.36,1);}
+  .lang-opt{position:relative;width:100%;height:32px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:400;font-size:20px;letter-spacing:0.2px;line-height:1;color:var(--content-inverted,#0e0e0f);background:none;border:0;cursor:pointer;transform:translateY(-8px);transition:transform .3s cubic-bezier(.22,.61,.36,1);}
   .lang-menu.is-open .lang-opt{transform:translateY(0);}
   .lang-menu.is-open .lang-opt:nth-child(2){transition-delay:.03s;}
   .lang-menu.is-open .lang-opt:nth-child(3){transition-delay:.07s;}
@@ -382,7 +381,7 @@
   .rv-card__btn{height:32px;border-radius:2px;border:1px solid var(--btn-border-neutral);background:var(--btn-neutral);
     color:var(--btn-content);font-family:var(--font-body);font-weight:500;font-size:16px;letter-spacing:0.2px;
     display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;margin-top:auto;}
-  .rv-card.is-selected .rv-card__btn{opacity:.3;cursor:default;}
+  .rv-card.is-selected .rv-card__btn{opacity:.3;cursor:default;background:transparent;color:var(--content-secondary);}   /* selected state per Figma: outlined, transparent, dimmed */
 
   .modal__right{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
     border:1px solid var(--border-primary);padding:16px 16px 0;overflow:hidden;}
@@ -615,6 +614,7 @@
   .cf-call{height:32px;background:none;border:0;color:var(--content-secondary);font-family:var(--font-body);font-weight:500;font-size:16px;letter-spacing:0.2px;cursor:pointer;}
   body.modal-open{overflow:hidden;}
   body.modal-open .page{transform:scale(var(--modal-s,0.97));}   /* proportional shrink; gaps on sides+top, bottom stays attached */
+  body.modal-open .header{transform:scale(var(--modal-s,0.97));}   /* header shrinks smoothly with the page, dimmed by the overlay */
   body.modal-open #galleryPage{transform:scale(var(--modal-s,0.97));}   /* gallery shrinks with the modal, stays open */
   body.modal-open #galleryPage .gp-book .btn .hrev-i{transform:translateY(0)!important;transition:none;}
   body.modal-open #galleryPage .gp-book .btn .hrev-dup{transform:translateY(105%)!important;transition:none;}
@@ -686,16 +686,6 @@
 </style>
 </head>
 <body>
-<div class="page">
-
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="hero__bg">
-      <video class="hero__video" src="hero.mp4" muted loop playsinline preload="auto" poster="001.webp"></video>
-      <video class="hero__doors" src="loader.mp4" muted autoplay playsinline preload="auto"></video>
-    </div>
-    <div class="hero__blackout"></div>
-
     <header class="header">
       <nav class="grp">
         <a href="#menu" data-t="Меню"><span class="nav-txt">Меню</span></a>
@@ -717,6 +707,16 @@
         </div>
       </div>
     </header>
+<div class="page">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero__bg">
+      <video class="hero__video" src="hero.mp4" muted loop playsinline preload="auto" poster="001.webp"></video>
+      <video class="hero__doors" src="loader.mp4" muted autoplay playsinline preload="auto"></video>
+    </div>
+    <div class="hero__blackout"></div>
+
 
     <div class="hero__logo"><svg style="width:100%;height:100%;display:block" width="255" height="52" viewBox="0 0 255 52" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M33.5939 9.51652L33.5401 9.37402C32.1669 5.87706 29.8745 1.86017 24.2819 1.86017H8.90047V26.0616H22.0088C27.2205 26.0616 27.886 24.3285 28.3706 21.4709L28.4014 21.2783H29.713V32.7089H28.4014L28.3706 32.5202C27.8898 29.6626 27.2205 27.9256 22.0088 27.9256H8.90047V46.2539C8.90047 49.3118 9.7582 50.4633 12.166 50.6598L12.3814 50.6713V52H0.00390625V50.6713L0.215454 50.6598C2.62326 50.4595 3.48099 49.308 3.48099 46.2539V5.74996C3.48099 2.74596 2.62326 1.60984 0.215454 1.41727L0.00390625 1.39802V0H33.3631L34.9171 9.51652H33.5939Z" fill="#E1E1E1"/>
@@ -945,7 +945,7 @@
     <button class="btn"><span>Забронировать</span><span class="ic"><svg viewBox="0 0 16 16" fill="none"><path d="M1 8h13.5M10 3.5 14.5 8 10 12.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
   </div>
   <div class="gp-lightbox" aria-hidden="true">
-    <button class="gp-lightbox__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 16 16" fill="none"><path d="M2 2 14 14M14 2 2 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+    <button class="gp-lightbox__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 16 16" fill="none"><path d="M2.34338 12.9995H3.63031C3.71342 12.9995 3.79367 12.9721 3.85597 12.9224L7.99969 9.6183L12.144 12.9229C12.2063 12.9726 12.2866 13 12.3697 13H13.6566C13.9498 13 14.1062 12.688 13.9127 12.4892L9.79911 8.47101C9.74444 8.41485 9.71429 8.34265 9.71429 8.26789L9.71429 7.73066C9.71429 7.65587 9.74447 7.58363 9.79919 7.52746L13.9144 3.51141C14.1081 3.31261 13.9517 3.00049 13.6585 3.00049L12.3718 3.00049C12.2888 3.00049 12.2085 3.02789 12.1462 3.07752L8.00031 6.38163L3.85375 3.07703C3.79147 3.02739 3.71124 3 3.62816 3H2.34153C2.04827 3 1.8919 3.31212 2.08556 3.51091L6.20081 7.52746C6.25553 7.58363 6.28571 7.65587 6.28571 7.73066V8.26789C6.28571 8.34265 6.25556 8.41485 6.20089 8.47101L2.08733 12.4887C1.89378 12.6875 2.05017 12.9995 2.34338 12.9995Z" fill="currentColor"/></svg></button>
     <img class="gp-lightbox__img" alt="">
   </div>
 </div>
@@ -984,7 +984,14 @@
       trigger.classList.add('is-open'); trigger.setAttribute('aria-expanded','true');
       clearTimeout(resetT);
       // menu keeps its CSS width, centered under the trigger -> equal side padding, no overlap
-      requestAnimationFrame(function(){ menu.classList.add('is-open'); });
+      requestAnimationFrame(function(){
+        menu.classList.add('is-open');
+        menu.style.transform='';                                   // back to CSS centering
+        var r=menu.getBoundingClientRect(), mg=8, sh=0;            // keep within viewport
+        var ov=r.right-(window.innerWidth-mg), un=mg-r.left;
+        if(ov>0) sh=-ov; else if(un>0) sh=un;
+        if(sh) menu.style.transform='translateX(calc(-50% + '+sh+'px))';
+      });
     }
     function close(){
       if(!isOpen) return;
@@ -1905,7 +1912,7 @@
     refreshSubmit();
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden','false');
-    (function(){var pg=document.querySelector('.page');if(pg){var z=parseFloat(document.documentElement.style.zoom)||1;var W=window.innerWidth*z,g=24;pg.style.setProperty('--modal-s',((W-2*g)/W).toFixed(5));pg.style.transformOrigin='50% '+(window.scrollY+window.innerHeight)+'px';}})();
+    (function(){var pg=document.querySelector('.page');if(pg){var z=parseFloat(document.documentElement.style.zoom)||1;var W=window.innerWidth*z,g=24;var s=((W-2*g)/W).toFixed(5);pg.style.setProperty('--modal-s',s);pg.style.transformOrigin='50% '+(window.scrollY+window.innerHeight)+'px';var hdr=document.querySelector('.header');if(hdr){hdr.style.setProperty('--modal-s',s);hdr.style.transformOrigin='50% '+window.innerHeight+'px';}}})();
     document.body.classList.add('modal-open');
   }
   function close(){
@@ -1929,7 +1936,7 @@
     refreshSubmit();
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden','false');
-    (function(){var pg=document.querySelector('.page');if(pg){var z=parseFloat(document.documentElement.style.zoom)||1;var W=window.innerWidth*z,g=24;pg.style.setProperty('--modal-s',((W-2*g)/W).toFixed(5));pg.style.transformOrigin='50% '+(window.scrollY+window.innerHeight)+'px';}})();
+    (function(){var pg=document.querySelector('.page');if(pg){var z=parseFloat(document.documentElement.style.zoom)||1;var W=window.innerWidth*z,g=24;var s=((W-2*g)/W).toFixed(5);pg.style.setProperty('--modal-s',s);pg.style.transformOrigin='50% '+(window.scrollY+window.innerHeight)+'px';var hdr=document.querySelector('.header');if(hdr){hdr.style.setProperty('--modal-s',s);hdr.style.transformOrigin='50% '+window.innerHeight+'px';}}})();
     document.body.classList.add('modal-open');
     requestAnimationFrame(function(){                 // scroll the zone list to the card we came from
       var row = document.getElementById('rvRow');
